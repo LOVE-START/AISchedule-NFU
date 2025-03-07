@@ -1,0 +1,59 @@
+async function scheduleHtmlProvider() {
+  await loadTool('AIScheduleTools')
+  try {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1; // 月份从 0 开始，需要 +1
+    const defaultYear = currentMonth >= 8 ? currentYear : currentYear - 1; // 8 月以后算新学年
+    const defaultTerm = (currentMonth >= 8 && currentMonth <= 12) ? '1' : '2'; // 8-12 月为1学期，1-7 月为2学期
+
+    const year = await AISchedulePrompt({
+      titleText: '学年',
+      tipText: '请输入本学年开始的年份',
+      defaultText: defaultYear.toString(),
+      validator: value => {
+        const v = parseInt(value);
+        if (v < 2000 || v > 2100) {
+          return '请输入正确的学年';
+        }
+        return false;
+      }
+    });
+
+    const term = await AISchedulePrompt({
+      titleText: '学期',
+      tipText: '请输入本学期的学期(1 2|分别表示上 下学期)',
+      defaultText: defaultTerm,
+      validator: value => {
+        if (value === '1' || value === '2' || value === '3') {
+          return false;
+        }
+        return '请输入正确的学期';
+      }
+    });
+
+    const xqm = {
+      '1': '3',
+      '2': '12',
+      '3': '16',
+    }[term];
+
+    const res = await fetch("https://jwxt.nfu.edu.cn/jwglxt/kbcx/xskbcx_cxXsgrkb.html?gnmkdm=N2151", {
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+        "x-requested-with": "XMLHttpRequest"
+      },
+      "body": `xnm=${year}&xqm=${xqm}&kzlx=ck&xsdm=`,
+      "method": "POST",
+      "mode": "cors",
+      "credentials": "include"
+    });
+
+    const ret = await res.json();
+    return JSON.stringify(ret.kbList);
+
+  } catch (error) {
+    await AIScheduleAlert('请确定你已经登陆了教务系统');
+    return 'do not continue';
+  }
+}
