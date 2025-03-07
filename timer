@@ -1,0 +1,91 @@
+async function scheduleTimer({
+} = {}) {
+  return {
+    totalWeek: 20,
+    startSemester: '',
+    startWithSunday: false,
+    showWeekend: true,
+    forenoon: 6,
+    afternoon: 5,
+    night: 4,
+    sections: [
+      {
+        section: 1,
+        startTime: '08:00',
+        endTime: '08:40',
+      },
+      {
+        section: 2,
+        startTime: '08:50',
+        endTime: '09:30',
+      },
+      {
+        section: 3,
+        startTime: '09:45',
+        endTime: '10:25',
+      },
+      {
+        section: 4,
+        startTime: '10:35',
+        endTime: '11:15',
+      },
+      {
+        section: 5,
+        startTime: '11:20',
+        endTime: '12:00',
+      },
+      {
+        section: 6,
+        startTime: '12:50',
+        endTime: '13:30',
+      },
+      {
+        section: 7,
+        startTime: '13:40',
+        endTime: '14:20',
+      },
+      {
+        section: 8,
+        startTime: '14:30',
+        endTime: '15:10',
+      },
+      {
+        section: 9,
+        startTime: '15:15',
+        endTime: '15:55',
+      },
+      {
+        section: 10,
+        startTime: '16:10',
+        endTime: '16:50',
+      },
+      {
+        section: 11,
+        startTime: '16:55',
+        endTime: '17:35',
+      },
+      {
+        section: 12,
+        startTime: '18:45',
+        endTime: '19:25',
+      },
+      {
+        section: 13,
+        startTime: '19:30',
+        endTime: '20:10',
+      },
+       {
+        section: 14,
+        startTime: '20:15',
+        endTime: '20:55',
+      },
+       {
+        section: 15,
+        startTime: '21:05',
+        endTime: '21:45',
+      },
+       
+    ],
+  }
+
+}
